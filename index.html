@@ -37,16 +37,21 @@
       const result = await response.json();
       const location = result.data.getLocation;
 
-      if (location) {
-        document.getElementById('result').innerHTML = `
-          <p><strong>Course:</strong> ${location.course}</p>
-          <p><strong>Location:</strong> ${location.building} ${location.room}</p>
-          <p><strong>Hours:</strong> ${location.hours}</p>
-          <p><strong>Occupancy:</strong> ${location.occupancy}</p>
-        `;
-      } else {
-        document.getElementById('result').innerHTML = `<p>No result found.</p>`;
-      }
+     if (location) {
+  document.getElementById('result').innerHTML = `
+    <p><strong>Course:</strong> ${location.course}</p>
+    <p><strong>Location:</strong> ${location.building} ${location.room}</p>
+    <p><strong>Hours:</strong> ${location.hours}</p>
+    <p><strong>Occupancy:</strong> ${location.occupancy}</p>
+    <p>
+      <a href="https://www.kpu.ca/current-students/find-your-classroom/kpu-surrey-campus" target="_blank">
+        🗺️ View Campus Map
+      </a>
+    </p>
+  `;
+} else {
+  document.getElementById('result').innerHTML = `<p>No result found.</p>`;
+}
     }
   </script>
 </body>
