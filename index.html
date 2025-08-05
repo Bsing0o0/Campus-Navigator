@@ -3,65 +3,246 @@
 <head>
   <title>Campus Navigator</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+  #map-wrapper {
+   margin-top: 10px;
+   width: 100%;
+   height: 600px;           /* Limit height of the container */
+   overflow-y: auto;        /* Enable vertical scroll */
+   overflow-x: auto;        /* Optional horizontal scroll if image is also wide */
+}
 
+  #map-container {
+   position: relative;
+   display: inline-block;
+   transform-origin: 0 0;
+}
+
+  #campus-map {
+   max-width: none;
+   width: 1000px; /* Higher resolution for zooming */
+}
+
+  #highlight {
+   position: absolute;
+   width: 20px;
+   height: 20px;
+   background-color: rgba(233, 229, 8, 0.45);
+   border-radius: 50%;
+   display: none;
+   transform: translate(-50%, -50%);
+   pointer-events: none;
+}
+
+  </style>
 </head>
 <body>
   <h1>Campus Navigator</h1>
-  <input type="text" id="courseInput" placeholder="Enter Course Code">
-  <button onclick="search()">Search</button>
 
   <a href="https://www.kpu.ca/surrey" target="_blank" id="info-button">
-  For more information →
+    For more information →
   </a>
 
   <a href="https://one.kpu.ca/" target="_blank" id="one_KPU-button">
-  ONE.KPU→
+    ONE.KPU→
   </a>
 
-  <div id="result"></div>
+  <div id="floor-and-search">
+  <div id="floor-buttons">
+    <button onclick="setFloor(1)">Floor 1</button>
+    <button onclick="setFloor(2)">Floor 2</button>
+    <button onclick="setFloor(3)">Floor 3</button>
+  </div>
+
+  <div id="search-and-result">
+    <div id="search-bar">
+      <input type="text" id="courseInput" placeholder="Enter Course Code">
+      <button onclick="search()">Search</button>
+    </div>
+    
+    <div id="result"></div> 
+  </div>
+</div>
+
+  <!-- Campus map with highlight -->
+  <div id="map-wrapper">
+  <div id="map-container">
+    <img src="kpufloor1.png" id="campus-map" alt="Campus Map">
+    <div id="highlight"></div>
+  </div>
+</div>
 
   <script>
-    async function search() {
-      const course = document.getElementById('courseInput').value;
-      const query = `
-        query {
-          getLocation(course: "${course}") {
-            course
-            building
-            room
-            hours
-            occupancy
-          }
-        }
-      `;
-      
-      const response = await fetch("http://localhost:4000/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ query })
-      });
+    // Room-to-coordinate mapping (you can refine this based on your map)
+    const roomCoordinates = {
+      "103": { top: 563, left: 747 },
+      "2040": { top: 420, left: 806 },
+      "2050": { top: 415, left: 771 }
+      // Add more rooms as we add more classes to JSON file
+    };
 
-      const result = await response.json();
-      const location = result.data.getLocation;
+    // Highlight room for selected course
+    function highlightRoom(roomCode) {
+      const highlight = document.getElementById('highlight');
+      const coords = roomCoordinates[roomCode];
 
-     if (location) {
-  document.getElementById('result').innerHTML = `
-    <p><strong>Course:</strong> ${location.course}</p>
-    <p><strong>Location:</strong> ${location.building} ${location.room}</p>
-    <p><strong>Hours:</strong> ${location.hours}</p>
-    <p><strong>Occupancy:</strong> ${location.occupancy}</p>
-    <p>
-      <a href="https://www.kpu.ca/current-students/find-your-classroom/kpu-surrey-campus" target="_blank">
-        🗺️ View Campus Map
-      </a>
-    </p>
-  `;
-} else {
-  document.getElementById('result').innerHTML = `<p>No result found.</p>`;
-}
+      if (coords) {
+        highlight.style.top = coords.top + 'px';
+        highlight.style.left = coords.left + 'px';
+        highlight.style.display = 'block';
+      } else {
+        highlight.style.display = 'none'; // Room not mapped
+      }
     }
+
+    async function search() {
+  const course = document.getElementById('courseInput').value;
+  const query = `
+    query {
+      getLocation(course: "${course}") {
+        course
+        building
+        room
+        hours
+        occupancy
+      }
+    }
+  `;
+
+  const response = await fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ query })
+  });
+
+  const result = await response.json();
+  const location = result.data.getLocation;
+
+  if (location) {
+    document.getElementById('result').innerHTML = `
+      <span><strong>Course:</strong> ${location.course}</span>
+      <span><strong>Location:</strong> ${location.building} ${location.room}</span>
+      <span><strong>Hours:</strong> ${location.hours}</span>
+      <span><strong>Occupancy:</strong> ${location.occupancy}</span>
+    `;
+
+    // Automatically switch floor based on first digit of room number
+    const firstDigit = parseInt(location.room[0], 10);
+    if ([1, 2, 3].includes(firstDigit)) {
+      setFloor(firstDigit);
+    }
+
+    // Delay highlighting to let image update
+    setTimeout(() => {
+      highlightRoom(location.room);
+    }, 50);
+  } else {
+    document.getElementById('result').innerHTML = `<p>No result found.</p>`;
+    document.getElementById('highlight').style.display = 'none';
+  }
+}
+
+
+// Implement scroll zoom
+let scale = 1;
+const container = document.getElementById('map-container');
+const wrapper = document.getElementById('map-wrapper');
+
+wrapper.addEventListener('wheel', function (e) {
+  e.preventDefault();
+
+  const zoomFactor = 0.1;
+  const oldScale = scale;
+  const zoomIn = e.deltaY < 0;
+  scale += zoomIn ? zoomFactor : -zoomFactor;
+  scale = Math.max(1, Math.min(scale, 5));
+
+  // Coordinates relative to the container
+  const rect = container.getBoundingClientRect();
+  const dx = e.clientX - rect.left;
+  const dy = e.clientY - rect.top;
+
+  // Coordinates as a fraction of container
+  const xRatio = dx / rect.width;
+  const yRatio = dy / rect.height;
+
+  // Apply scale
+  container.style.transformOrigin = "0 0";
+  container.style.transform = `scale(${scale})`;
+
+  // Maintain scroll position so that zoom centers on mouse
+  const scrollLeft = (container.offsetWidth * scale * xRatio) - wrapper.clientWidth / 2;
+  const scrollTop = (container.offsetHeight * scale * yRatio) - wrapper.clientHeight / 2;
+
+  wrapper.scrollLeft = scrollLeft;
+  wrapper.scrollTop = scrollTop;
+});
+
+// Implement pinch zoom for mobile
+let pinchStartDistance = null;
+let initialScale = scale;
+
+wrapper.addEventListener("touchstart", function (e) {
+  if (e.touches.length === 2) {
+    pinchStartDistance = getPinchDistance(e.touches[0], e.touches[1]);
+    initialScale = scale;
+  }
+}, { passive: false });
+
+wrapper.addEventListener("touchmove", function (e) {
+  if (e.touches.length === 2 && pinchStartDistance !== null) {
+    e.preventDefault();
+    const newDistance = getPinchDistance(e.touches[0], e.touches[1]);
+    const zoomFactor = newDistance / pinchStartDistance;
+    scale = Math.max(1, Math.min(initialScale * zoomFactor, 5));
+
+    container.style.transformOrigin = "0 0";
+    container.style.transform = `scale(${scale})`;
+  }
+}, { passive: false });
+
+wrapper.addEventListener("touchend", function (e) {
+  if (e.touches.length < 2) {
+    pinchStartDistance = null;
+  }
+}, { passive: false });
+
+function getPinchDistance(touch1, touch2) {
+  const dx = touch2.clientX - touch1.clientX;
+  const dy = touch2.clientY - touch1.clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Have map image change based on user selected floor (default floor 1)
+let currentFloor = 1;
+
+    function setFloor(floor) {
+      currentFloor = floor;
+      const mapImg = document.getElementById('campus-map');
+
+      // Change image source based on floor
+      mapImg.src = `kpufloor${floor}.png`;
+
+      // Reset zoom scale and transform
+      scale = 1;
+      const container = document.getElementById('map-container');
+      container.style.transform = `scale(${scale})`;
+      container.style.transformOrigin = '0 0';
+
+      // Reset scroll positions
+      const wrapper = document.getElementById('map-wrapper');
+      wrapper.scrollLeft = 0;
+      wrapper.scrollTop = 0;
+
+      // Hide highlight on floor change (or optionally clear and re-highlight for new floor)
+      document.getElementById('highlight').style.display = 'none';
+
+    }
+
+    // Set initial floor
+    setFloor(1);
   </script>
 </body>
 </html>

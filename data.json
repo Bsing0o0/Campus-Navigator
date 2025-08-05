@@ -7,7 +7,7 @@
     "occupancy": "Low"
   },
   {
-    "course": "BUSI-1210",
+    "course": "BUSI 1210",
     "building": "Main",
     "room": "103",
     "hours": "9:00am - 5:00pm",
@@ -21,3 +21,4 @@
     "occupancy": "Low"
   }
 ]
+

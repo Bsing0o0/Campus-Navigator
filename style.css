@@ -11,7 +11,7 @@ body {
 
 h1 {
   color: #1a1a2e;
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   font-weight: 600;
   margin-bottom: 25px;
 }
@@ -48,17 +48,21 @@ button:hover {
 }
 
 #result {
-  margin-top: 35px;
-  padding: 25px;
+  padding: 10px;
   border-radius: 10px;
   background-color: #e54464;
   color: #2c3e50;
-  display: inline-block;
-  text-align: left;
-  max-width: 450px;
+  display: block;
+  max-width: 750px;   /* increased from 300px */
+  min-width: 400px;   /* optional, adjust as needed */
+  text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-size: 16px;
   line-height: 1.6;
+  margin-top: 10px;   /* add some top margin */
+  margin-left: auto;  /* center horizontally */
+  margin-right: auto; /* center horizontally */
+  flex-shrink: 0;
 }
 
 #info-button {
@@ -101,3 +105,32 @@ button:hover {
   background-color: #2980b9;
 }
 
+#search-and-result {
+  display: flex;
+  flex-direction: column;  /* stack vertically */
+  align-items: center;     /* center children horizontally */
+  gap: 8px;
+  margin-top: 20px;
+}
+
+
+#search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  #search-and-result {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #result span {
+  display: inline-block;
+  margin-right: 0px;
+  white-space: nowrap;
+}
+
+}
