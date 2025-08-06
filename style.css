@@ -136,3 +136,10 @@ button:hover {
 }
 
 }
+
+.logo {
+  max-width: 250px;
+  height: 60px;
+  margin: 0 auto 20px;
+  display: block;
+}
