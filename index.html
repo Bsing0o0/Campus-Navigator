@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Campus Navigator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
   #map-wrapper {
@@ -75,25 +76,48 @@
   <script>
     // Room-to-coordinate mapping (you can refine this based on your map)
     const roomCoordinates = {
-      "103": { top: 563, left: 747 },
-      "2040": { top: 420, left: 806 },
-      "2050": { top: 415, left: 771 }
+      "103": { top: 3127, left: 4145 },
+      "218": { top: 715, left: 2245},
+      "1040": { top: 2340, left: 4578},
+      "1045": { top: 2340, left: 4463},
+      "1050": { top: 2340, left: 4347},
+      "2040": { top: 2340, left: 4473 },
+      "2050": { top: 2300, left: 4280 },
+      "2065": { top: 2383, left: 4129},
+      "2075": { top: 2383, left: 4015}
       // Add more rooms as we add more classes to JSON file
     };
 
     // Highlight room for selected course
     function highlightRoom(roomCode) {
-      const highlight = document.getElementById('highlight');
-      const coords = roomCoordinates[roomCode];
+  const highlight = document.getElementById('highlight');
+  const coords = roomCoordinates[roomCode];
 
-      if (coords) {
-        highlight.style.top = coords.top + 'px';
-        highlight.style.left = coords.left + 'px';
-        highlight.style.display = 'block';
-      } else {
-        highlight.style.display = 'none'; // Room not mapped
-      }
-    }
+  if (coords) {
+    const mapImg = document.getElementById('campus-map');
+
+    // Get the natural image size and current displayed size
+    const naturalWidth = mapImg.naturalWidth;
+    const naturalHeight = mapImg.naturalHeight;
+    const displayedWidth = mapImg.clientWidth;
+    const displayedHeight = mapImg.clientHeight;
+
+    // Calculate scale factors
+    const scaleX = displayedWidth / naturalWidth;
+    const scaleY = displayedHeight / naturalHeight;
+
+    // Scale the coordinates
+    const scaledTop = coords.top * scaleY;
+    const scaledLeft = coords.left * scaleX;
+
+    highlight.style.top = scaledTop + 'px';
+    highlight.style.left = scaledLeft + 'px';
+    highlight.style.display = 'block';
+  } else {
+    highlight.style.display = 'none';
+  }
+}
+
 
     async function search() {
   const course = document.getElementById('courseInput').value;
@@ -109,7 +133,8 @@
     }
   `;
 
-  const response = await fetch("http://localhost:4000/graphql", {
+  //const response = await fetch("http://localhost:4000/graphql", {
+  const response = await fetch("http://192.168.1.78:4000/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -243,6 +268,24 @@ let currentFloor = 1;
 
     // Set initial floor
     setFloor(1);
+    
   </script>
+
+  <script>
+  window.addEventListener('load', () => {
+    const map = document.getElementById('campus-map');
+    const container = document.getElementById('map-container');
+
+    if (!map.complete) {
+      map.onload = () => {
+        container.style.maxHeight = map.clientHeight + 'px';
+        container.style.maxWidth = map.clientWidth + 'px';
+      };
+    } else {
+      container.style.maxHeight = map.clientHeight + 'px';
+      container.style.maxWidth = map.clientWidth + 'px';
+    }
+  });
+</script>
 </body>
 </html>

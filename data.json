@@ -1,5 +1,12 @@
 [
   {
+    "course": "ANTH 1100(S12)",
+    "building": "Fir",
+    "room": "218",
+    "hours": "12:00pm - 3:50pm",
+    "occupancy": "Medium"
+  },
+  {
     "course": "INFO 2500(S11)",
     "building": "Cedar",
     "room": "2050",
@@ -13,12 +20,118 @@
     "hours": "9:00am - 5:00pm",
     "occupancy": "Medium"
   },
-    {
-    "course": "INFO 2500(S10)",
+  {
+    "course": "INFO 2413(S10)",
     "building": "Cedar",
-    "room": "2040",
-    "hours": "10:00am - 1:00pm",
+    "room": "1050",
+    "hours": "4:00pm - 6:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 2413(S50)",
+    "building": "Cedar",
+    "room": "1050",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 2413(S51)",
+    "building": "Cedar",
+    "room": "1040",
+    "hours": "7:00pm - 9:50pm",
     "occupancy": "Low"
+  },
+  {
+    "course": "INFO 2416(A10)",
+    "building": "Cedar",
+    "room": "Online",
+    "hours": "1:00pm - 3:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 2416(A11)",
+    "building": "Cedar",
+    "room": "Online",
+    "hours": "10:00am - 12:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 2416(S10)",
+    "building": "Cedar",
+    "room": "2065",
+    "hours": "1:00pm - 3:50pm",
+    "occupancy": "Medium"
+  },
+  {
+    "course": "INFO 3110(S50)",
+    "building": "Cedar",
+    "room": "1040",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 3250(S10)",
+    "building": "Cedar",
+    "room": "Online",
+    "hours": "4:00pm - 6:50pm",
+    "occupancy": "Low"
+  },
+  {
+    "course": "INFO 3250(S11)",
+    "building": "Cedar",
+    "room": "Online",
+    "hours": "4:00pm - 6:50pm",
+    "occupancy": "Low"
+  },
+  {
+    "course": "INFO 3280(S50)",
+    "building": "Cedar",
+    "room": "1045",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "Medium"
+  },
+  {
+    "course": "INFO 3280(S51)",
+    "building": "Cedar",
+    "room": "Online",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "Low"
+  },
+  {
+    "course": "INFO 4190(S50)",
+    "building": "Cedar",
+    "room": "2075",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "High"
+  },
+  {
+    "course": "INFO 4290(S50)",
+    "building": "Cedar",
+    "room": "2075",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "Low"
+  },
+    {
+    "course": "INFO 4330(S10)",
+    "building": "Cedar",
+    "room": "2075",
+    "hours": "4:00pm - 6:50pm",
+    "occupancy": "Medium"
+  },
+  {
+    "course": "INFO 4330(S50)",
+    "building": "Cedar",
+    "room": "2075",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "Medium"
+  },
+    {
+    "course": "INFO 4235(S50)",
+    "building": "Cedar",
+    "room": "2075",
+    "hours": "7:00pm - 9:50pm",
+    "occupancy": "High"
   }
+
 ]
 

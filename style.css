@@ -122,6 +122,68 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+
+  h1 {
+    font-size: 2.5rem; /* bigger heading */
+  }
+
+  #one_KPU-button,
+  #info-button {
+    padding: 6px 10px;        /* smaller padding */
+    font-size: 12px;          /* smaller font */
+    top: 10px;                /* push closer to top */
+    border-radius: 6px;
+  }
+
+  #one_KPU-button {
+    left: 10px;               /* push to left edge */
+  }
+
+  #info-button {
+    right: 10px;              /* push to right edge */
+  }
+
+  #floor-buttons {
+    display: flex;
+    justify-content: space-between; /* or space-around */
+    gap: 5px; /* small gap between buttons */
+    flex-wrap: nowrap; /* don't wrap */
+  }
+
+  #floor-buttons button {
+    flex: 1 1 auto;   /* allow buttons to shrink/grow */
+    min-width: 0;     /* prevent minimum width from causing wrapping */
+    padding: 8px 4px; /* smaller padding */
+    font-size: 14px;  /* smaller font */
+  }
+
+  #search-bar {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap; /* keep input and button on same line */
+    justify-content: center;
+    align-items: center;
+  }
+
+  #search-bar input[type="text"] {
+    flex: 1 1 auto;   /* input grows to fill space */
+    min-width: 0;     /* avoid overflowing */
+    padding: 10px 8px; /* reduce padding for smaller screen */
+    font-size: 14px;
+  }
+
+  #search-bar button {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  #result {
+    font-size: 18px;
+    padding: 15px;
+    max-width: 90vw;
+    min-width: auto;
+  }
+
   #search-and-result {
     flex-direction: column;
     align-items: center;
@@ -133,4 +195,78 @@ button:hover {
   white-space: nowrap;
 }
 
+#map-wrapper {
+    height: auto;          /* let height adjust */
+    max-height: 60vh;      /* limit max height to 60% of viewport height */
+    overflow-x: hidden;    /* hide horizontal scroll */
+    overflow-y: auto;      /* allow vertical scroll if needed */
+  }
+
+  #map-container {
+  max-width: 100%;
+  width: 100vw;
+  height: auto;
+  overflow: hidden;
+  position: relative;
 }
+
+
+  #campus-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Makes sure the main map area can expand to fill available space */
+#map-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#map-container {
+  aspect-ratio: 3 / 2; /* adjust to fit your map’s aspect ratio */
+  max-width: 100%;
+  max-height: 70vh; /* limits height to 70% of viewport */
+  overflow: hidden;
+  position: relative;
+}
+
+#campus-map {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* Highlight circle */
+#highlight {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(233, 229, 8, 0.45);
+  border-radius: 50%;
+  display: none;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Ensure page layout uses vertical flex */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
