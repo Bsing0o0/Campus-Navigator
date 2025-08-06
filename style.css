@@ -56,12 +56,12 @@ button:hover {
   color: #2c3e50;
   display: block;
   max-width: 750px;   /* increased from 300px */
-  min-width: 400px;   /* optional, adjust as needed */
+  min-width: 400px;   
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-size: 16px;
   line-height: 1.6;
-  margin-top: 10px;   /* add some top margin */
+  margin-top: 10px;   
   margin-left: auto;  /* center horizontally */
   margin-right: auto; /* center horizontally */
   flex-shrink: 0;
@@ -110,7 +110,7 @@ button:hover {
 #search-and-result {
   display: flex;
   flex-direction: column;  /* stack vertically */
-  align-items: center;     /* center children horizontally */
+  align-items: center;     
   gap: 8px;
   margin-top: 20px;
 }
@@ -126,7 +126,7 @@ button:hover {
 @media (max-width: 768px) {
 
   h1 {
-    font-size: 2.5rem; /* bigger heading */
+    font-size: 2.5rem; 
   }
 
   #one_KPU-button,
@@ -153,24 +153,24 @@ button:hover {
   }
 
   #floor-buttons button {
-    flex: 1 1 auto;   /* allow buttons to shrink/grow */
-    min-width: 0;     /* prevent minimum width from causing wrapping */
-    padding: 8px 4px; /* smaller padding */
-    font-size: 14px;  /* smaller font */
+    flex: 1 1 auto;   
+    min-width: 0;     
+    padding: 8px 4px; 
+    font-size: 14px;  
   }
 
   #search-bar {
     display: flex;
     gap: 5px;
-    flex-wrap: nowrap; /* keep input and button on same line */
+    flex-wrap: nowrap; 
     justify-content: center;
     align-items: center;
   }
 
   #search-bar input[type="text"] {
-    flex: 1 1 auto;   /* input grows to fill space */
-    min-width: 0;     /* avoid overflowing */
-    padding: 10px 8px; /* reduce padding for smaller screen */
+    flex: 1 1 auto;   
+    min-width: 0;     
+    padding: 10px 8px; 
     font-size: 14px;
   }
 
@@ -198,10 +198,10 @@ button:hover {
 }
 
 #map-wrapper {
-    height: auto;          /* let height adjust */
-    max-height: 60vh;      /* limit max height to 60% of viewport height */
-    overflow-x: hidden;    /* hide horizontal scroll */
-    overflow-y: auto;      /* allow vertical scroll if needed */
+    height: auto;         
+    max-height: 80vh;      
+    overflow-x: hidden;    
+    overflow-y: auto;      
   }
 
   #map-container {
@@ -214,9 +214,10 @@ button:hover {
 
 
   #campus-map {
-  display: block;
   width: 100%;
   height: auto;
+  max-width: 100%;
+  display: block;
   object-fit: contain;
 }
 
@@ -226,7 +227,7 @@ html, body {
   height: 100%;
 }
 
-/* Makes sure the main map area can expand to fill available space */
+
 #map-wrapper {
   display: flex;
   justify-content: center;
@@ -239,9 +240,9 @@ html, body {
 }
 
 #map-container {
-  aspect-ratio: 3 / 2; /* adjust to fit your map’s aspect ratio */
+  aspect-ratio: 3 / 2; 
   max-width: 100%;
-  max-height: 70vh; /* limits height to 70% of viewport */
+  max-height: 70vh; 
   overflow: hidden;
   position: relative;
 }
@@ -272,3 +273,17 @@ body {
   flex-direction: column;
 }
 
+.logo {
+  max-width: 270px;
+  height: 65px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  margin: 0 auto 20px;
+}
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}

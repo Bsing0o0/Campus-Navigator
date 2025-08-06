@@ -10,7 +10,7 @@
    width: 100%;
    height: 600px;           /* Limit height of the container */
    overflow-y: auto;        /* Enable vertical scroll */
-   overflow-x: auto;        /* Optional horizontal scroll if image is also wide */
+   overflow-x: auto;        
 }
 
   #map-container {
@@ -21,7 +21,7 @@
 
   #campus-map {
    max-width: none;
-   width: 1000px; /* Higher resolution for zooming */
+   width: 1000px; 
 }
 
   #highlight {
@@ -37,7 +37,9 @@
 
   </style>
 </head>
-<img src="KPU_logo.png" alt="KPU Logo" class="logo">
+<a href="https://www.kpu.ca" target="_blank">
+  <img src="KPU_logo.png" alt="KPU Logo" class="logo">
+</a>
 <body>
 
   <h1>Campus Navigator</h1>
@@ -76,7 +78,7 @@
 </div>
 
   <script>
-    // Room-to-coordinate mapping (you can refine this based on your map)
+    // Room-to-coordinate mapping 
     const roomCoordinates = {
       "103": { top: 3127, left: 4145 },
       "218": { top: 715, left: 2245},
@@ -87,7 +89,7 @@
       "2050": { top: 2300, left: 4280 },
       "2065": { top: 2383, left: 4129},
       "2075": { top: 2383, left: 4015}
-      // Add more rooms as we add more classes to JSON file
+      
     };
 
     // Highlight room for selected course
@@ -195,7 +197,7 @@ wrapper.addEventListener('wheel', function (e) {
   const xRatio = dx / rect.width;
   const yRatio = dy / rect.height;
 
-  // Apply scale
+  // Applying scale
   container.style.transformOrigin = "0 0";
   container.style.transform = `scale(${scale})`;
 
@@ -263,7 +265,7 @@ let currentFloor = 1;
       wrapper.scrollLeft = 0;
       wrapper.scrollTop = 0;
 
-      // Hide highlight on floor change (or optionally clear and re-highlight for new floor)
+      // Hide highlight on floor change 
       document.getElementById('highlight').style.display = 'none';
 
     }
