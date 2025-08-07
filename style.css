@@ -1,12 +1,20 @@
 /* styles.css */
 
-body {
+html, body {
+  height: auto;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #c2a2a2;
   color: #000000;
-  margin: 0;
-  padding: 40px 0;
   text-align: center;
+}
+
+body {
+  display: block;
+  padding-bottom: 60px;
 }
 
 h1 {
@@ -55,22 +63,22 @@ button:hover {
   background-color: #e54464;
   color: #2c3e50;
   display: block;
-  max-width: 750px;   /* increased from 300px */
-  min-width: 400px;   
+  max-width: 750px;
+  min-width: 400px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-size: 16px;
   line-height: 1.6;
-  margin-top: 10px;   
-  margin-left: auto;  /* center horizontally */
-  margin-right: auto; /* center horizontally */
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
   flex-shrink: 0;
 }
 
-#info-button {
+#info-button,
+#one_KPU-button {
   position: absolute;
   top: 20px;
-  right: 90px;
   background-color: #2c3e50;
   color: white;
   padding: 10px 18px;
@@ -83,38 +91,26 @@ button:hover {
   z-index: 999;
 }
 
-#info-button:hover {
-  background-color: #2980b9;
-}
-
-#one_KPU-button {
-  position: absolute;
-  top: 20px;
-  left: 70px;
-  background-color: #2c3e50;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-  z-index: 999;
-}
-
+#info-button:hover,
 #one_KPU-button:hover {
   background-color: #2980b9;
 }
 
+#info-button {
+  right: 90px;
+}
+
+#one_KPU-button {
+  left: 70px;
+}
+
 #search-and-result {
   display: flex;
-  flex-direction: column;  /* stack vertically */
-  align-items: center;     
+  flex-direction: column;
+  align-items: center;
   gap: 8px;
   margin-top: 20px;
 }
-
 
 #search-bar {
   display: flex;
@@ -123,128 +119,27 @@ button:hover {
   align-items: center;
 }
 
-@media (max-width: 768px) {
-
-  h1 {
-    font-size: 2.5rem; 
-  }
-
-  #one_KPU-button,
-  #info-button {
-    padding: 6px 10px;        /* smaller padding */
-    font-size: 12px;          /* smaller font */
-    top: 10px;                /* push closer to top */
-    border-radius: 6px;
-  }
-
-  #one_KPU-button {
-    left: 10px;               /* push to left edge */
-  }
-
-  #info-button {
-    right: 10px;              /* push to right edge */
-  }
-
-  #floor-buttons {
-    display: flex;
-    justify-content: space-between; /* or space-around */
-    gap: 5px; /* small gap between buttons */
-    flex-wrap: nowrap; /* don't wrap */
-  }
-
-  #floor-buttons button {
-    flex: 1 1 auto;   
-    min-width: 0;     
-    padding: 8px 4px; 
-    font-size: 14px;  
-  }
-
-  #search-bar {
-    display: flex;
-    gap: 5px;
-    flex-wrap: nowrap; 
-    justify-content: center;
-    align-items: center;
-  }
-
-  #search-bar input[type="text"] {
-    flex: 1 1 auto;   
-    min-width: 0;     
-    padding: 10px 8px; 
-    font-size: 14px;
-  }
-
-  #search-bar button {
-    padding: 10px 12px;
-    font-size: 14px;
-  }
-
-  #result {
-    font-size: 18px;
-    padding: 15px;
-    max-width: 90vw;
-    min-width: auto;
-  }
-
-  #search-and-result {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #result span {
-  display: inline-block;
-  margin-right: 0px;
-  white-space: nowrap;
-}
-
-#map-wrapper {
-    height: auto;         
-    max-height: 80vh;      
-    overflow-x: hidden;    
-    overflow-y: auto;      
-  }
-
-  #map-container {
-  max-width: 100%;
-  width: 100vw;
-  height: auto;
-  overflow: hidden;
-  position: relative;
-}
-
-
-  #campus-map {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  display: block;
-  object-fit: contain;
-}
-
-}
-
-html, body {
-  height: 100%;
-}
-
-
 #map-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
   padding: 10px;
+  overflow-x: auto;
+  overflow-y: auto;
   box-sizing: border-box;
+  touch-action: none;
 }
 
 #map-container {
-  aspect-ratio: 3 / 2; 
-  max-width: 100%;
-  max-height: 70vh; 
-  overflow: hidden;
   position: relative;
+  display: inline-block;
+  transform-origin: 0 0;
+  width: auto;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  max-height: 70vh;
 }
 
 #campus-map {
@@ -255,7 +150,6 @@ html, body {
   object-fit: contain;
 }
 
-/* Highlight circle */
 #highlight {
   position: absolute;
   width: 20px;
@@ -265,12 +159,6 @@ html, body {
   display: none;
   transform: translate(-50%, -50%);
   pointer-events: none;
-}
-
-/* Ensure page layout uses vertical flex */
-body {
-  display: flex;
-  flex-direction: column;
 }
 
 .logo {
@@ -283,7 +171,98 @@ body {
   display: block;
   margin: 0 auto 20px;
 }
+
 .logo:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  #info-button,
+  #one_KPU-button {
+    padding: 6px 10px;
+    font-size: 12px;
+    top: 10px;
+    border-radius: 6px;
+  }
+
+  #info-button {
+    right: 10px;
+  }
+
+  #one_KPU-button {
+    left: 10px;
+  }
+
+  #floor-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    flex-wrap: nowrap;
+  }
+
+  #floor-buttons button {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 8px 4px;
+    font-size: 14px;
+  }
+
+  #search-bar {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #search-bar input[type="text"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 14px;
+  }
+
+  #search-bar button {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  #result {
+    font-size: 16px;
+    padding: 15px;
+    max-width: 90vw;
+    min-width: auto;
+  }
+
+  #result span {
+    display: inline-block;
+    margin-right: 0px;
+    white-space: nowrap;
+  }
+
+  #map-wrapper {
+    height: 60vh;
+    overflow: auto;
+    padding: 5px;
+  }
+
+  #map-container {
+    width: auto;
+    height: auto;
+    max-width: unset;
+    max-height: unset;
+    transform-origin: 0 0;
+  }
+
+  #campus-map {
+    max-width: 100%;
+    height: auto;
+  }
 }
